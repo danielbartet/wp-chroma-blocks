@@ -1,0 +1,16 @@
+@import 'style';
+.cm-quiz-slide {
+    border: 2px solid lightgrey;
+    border-radius: 8px;
+    padding: 12px;
+}
+.quiz-image {
+    width: 100%;
+    margin: 0px;
+    .image-button {
+        padding: 0px;
+    }
+}
+.cm-quiz-slide-ans {
+    list-style-position: inside;
+}

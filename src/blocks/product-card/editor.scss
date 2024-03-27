@@ -1,0 +1,15 @@
+@import 'style';
+.rating_card {
+  .editor-styles-wrapper ul {
+    list-style: none;
+  }
+  figure {
+    background: #f9f9f9;
+    min-height: 250px;
+  }
+  .editor-rich-text__tinymce[data-is-placeholder-visible=true] {
+    height: auto;
+    margin: 0px;
+    position: relative;
+  }
+}

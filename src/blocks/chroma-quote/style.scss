@@ -1,0 +1,51 @@
+/**
+ * CSS for both Frontend+Backend.
+ */
+.divquote {
+ border-bottom: 5px #1b1b1b solid;
+ border-top: 5px #1b1b1b solid;
+ padding: 0 4%;
+ background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2M8c+bMfxMTE0YGKIAziBcAAASJBAUY6lH7AAAAAElFTkSuQmCC) repeat;
+ margin: 0 auto 15px;
+}
+.coolquote {
+ -webkit-text-fill-color: transparent;
+ background: linear-gradient(-35deg, rgba(163, 0, 255, 0.95), rgba(236, 9, 119, 0.95), rgb(236, 98, 0));
+ background-repeat: no-repeat;
+ background-size: cover;
+ -webkit-background-clip: text;
+ font-size: 2.4rem;
+ font-weight: 700;
+ font-style: italic;
+ letter-spacing: -.021em;
+ line-height: 1.35;
+ text-align: center;
+ margin: 0 auto;
+ padding: 4%;
+ display: block;;
+ animation: hue;
+ animation-duration: 8s;
+ animation-iteration-count: infinite;
+ animation-direction: alternate;
+ animation-timing-function: ease-in-out;
+ animation-fill-mode: forwards;
+}
+@keyframes hue {
+ 0% {
+   filter: hue-rotate(0deg);
+ }
+ 100% {
+   filter: hue-rotate(-110deg);
+ }
+}
+
+p.has-drop-cap:not(:focus):first-letter {
+  float: left;
+  font-weight: 700;
+  margin-right: 7px;
+  letter-spacing: -.03em;
+  margin-bottom: -.08em;
+  font-size: 3.8rem;
+  line-height: .875;
+  color: #000;
+}

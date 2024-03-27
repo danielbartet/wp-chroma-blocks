@@ -1,0 +1,78 @@
+/**
+ * CSS for both Frontend+Backend.
+ */
+.image-container {
+  display: flex;
+  width: 100%;
+  margin: 4px auto 12px;
+  figure {
+    width: auto;
+    height: auto !important;
+    padding-bottom: 0px !important;
+    margin: 0px auto;
+  }
+  img {
+   position: relative !important;
+   max-height: 606.762745781px;
+   object-fit: contain;
+   height: auto !important;
+  }
+  .fig-wcaption .figcaption {
+    position: relative;
+  }
+  &.left {
+    float: left;
+    margin-right: 12px;
+    margin-left: 4%;
+  }
+  &.right {
+    float: right;
+    margin-left: 12px;
+    margin-right: 4%;
+  }
+ &.left,&.right {
+   width: auto;
+   max-width: 50%;
+   @media (max-width: 420px) {
+     width: 100%;
+     max-width: 100%;
+     float: none;
+     margin: 12px auto;
+   }
+ }
+ &-inline {
+   margin: 0 1px 0px 2px;
+   display: inline-block;
+   width: 24px;
+   height: 24px;
+   vertical-align: middle;
+   & figure {
+     padding: 0px !important;
+     height: auto !important;
+     & img {
+       position: relative !important;
+     }
+   }
+ }
+ &--dark {
+   max-width: 100%;
+   background: #171717;
+   margin: 4px auto 12px;
+   padding: 4%;
+   & figure {
+     width: auto;
+     height: auto !important;
+     padding-bottom: 0px !important;
+     margin: 0px auto;
+     a {
+       color: '#bbbbbb'
+     }
+   }
+   & img {
+     position: relative !important;
+     max-height: 606.762745781px;
+     object-fit: contain;
+     height: auto !important;
+    }
+ }
+}

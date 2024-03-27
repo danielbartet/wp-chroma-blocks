@@ -1,0 +1,23 @@
+@import 'style';
+.cm_quiz_placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 250px;
+  text-align: center;
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, #0575E6, #00F260);
+  position: relative;
+  &:after {
+    content: 'Q';
+    font-size: 12rem;
+    margin-top: -5rem;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    opacity: .2;
+  }
+}
