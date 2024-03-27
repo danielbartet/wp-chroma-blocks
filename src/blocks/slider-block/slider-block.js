@@ -1,9 +1,9 @@
 import './style.scss'
 import './editor.scss'
+import { registerBlockType, createBlock } from '@wordpress/blocks';
 
 const { RawHTML } = wp.element
 const { __ } = wp.i18n
-const { registerBlockType, createBlock } = wp.blocks
 const {
   RichText,
   AlignmentToolbar,

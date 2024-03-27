@@ -9,7 +9,7 @@
 import './style.scss';
 import './editor.scss';
 
-const { registerBlockType } = wp.blocks;
+import { registerBlockType } from '@wordpress/blocks';
 const { RichText } = wp.editor;
 
 registerBlockType( 'chroma-blocks/cool-quote', {

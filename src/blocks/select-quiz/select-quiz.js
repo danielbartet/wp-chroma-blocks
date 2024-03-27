@@ -3,9 +3,9 @@
  import './editor.scss';
 import React from 'react';
 import Select from 'react-select';
+import { registerBlockType } from '@wordpress/blocks';
 
 const { __ } = wp.i18n
-const { registerBlockType } = wp.blocks
 const { apiFetch } = wp
 const { registerStore, withSelect } = wp.data
 const { Spinner } = wp.components

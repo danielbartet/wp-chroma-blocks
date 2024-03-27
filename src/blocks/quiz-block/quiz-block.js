@@ -3,7 +3,7 @@ import './style.scss';
 import './editor.scss';
 
 const { __ } = wp.i18n;
-const { registerBlockType } = wp.blocks;
+import { registerBlockType } from '@wordpress/blocks';
 const { RichText, MediaUpload } = wp.editor;
 const { SelectControl, Button } = wp.components;
 

@@ -1,6 +1,6 @@
 import './style.scss'
 
-const { registerBlockType } = wp.blocks;
+import { registerBlockType } from '@wordpress/blocks';
 const { URLInput } = wp.editor;
 const { Fragment } = wp.element;
 const { IconButton, Tooltip, TextControl } = wp.components;
