@@ -39,7 +39,7 @@ function chroma_blocks_cgb_editor_assets() {
 		'chroma_blocks-cgb-block-js', // Handle.
 		plugins_url( '/dist/blocks.build.js', dirname( __FILE__, 2 ) ), // Block.build.js: We register the block here. Built with Webpack.
 		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ), // Dependencies, defined above.
-		filemtime( plugin_dir_path( __DIR__ ) . '../dist/blocks.build.js' ), // Version: filemtime — Gets file modification time.
+		filemtime( plugin_dir_path( __DIR__ ) . '/dist/blocks.build.js' ), // Version: filemtime — Gets file modification time.
 		true // Enqueue the script in the footer.
 	);
 
@@ -47,7 +47,7 @@ function chroma_blocks_cgb_editor_assets() {
 		'chroma_blocks-cgb-block-editor-css', // Handle.
 		plugins_url( '/dist/blocks.editor.build.css', dirname( __FILE__, 2 ) ), // Block style CSS. NOTE WE ARE CHANGING THIS TO DEFAULT STYLE
 		array( 'wp-edit-blocks' ), // Dependency to include the CSS after it.
-		filemtime( plugin_dir_path( __DIR__ ) . '../dist/blocks.editor.build.css' )
+		filemtime( plugin_dir_path( __DIR__ ) . '/dist/blocks.editor.build.css' )
 		// filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' ) // Version: filemtime — Gets file modification time.
 	);
 } // End function chroma_blocks_cgb_editor_assets().
