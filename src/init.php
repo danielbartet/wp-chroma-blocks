@@ -34,22 +34,20 @@ add_action( 'enqueue_block_assets', 'chroma_blocks_assets', 100 );
 
 
 function chroma_blocks_cgb_editor_assets() {
-	error_log( '############### path: '.plugin_dir_path( __FILE__ ) . 'dist/blocks.build.js' );
-	error_log( '############### path: '.plugins_url( 'dist/blocks.style.build.css', dirname( __FILE__ )));
 	// Scripts.
 	wp_enqueue_script(
 		'chroma_blocks-cgb-block-js', // Handle.
-		plugin_dir_url(__FILE__).'dist/blocks.build.js', // Block.build.js: We register the block here. Built with Webpack.
+		plugins_url( '/dist/blocks.build.js', dirname( __FILE__, 2 ) ), // Block.build.js: We register the block here. Built with Webpack.
 		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ), // Dependencies, defined above.
-		filemtime( plugin_dir_path( __FILE__ ) . 'dist/blocks.build.js' ), // Version: filemtime — Gets file modification time.
+		filemtime( plugin_dir_path( __DIR__ ) . '../dist/blocks.build.js' ), // Version: filemtime — Gets file modification time.
 		true // Enqueue the script in the footer.
 	);
 
 	wp_enqueue_style(
 		'chroma_blocks-cgb-block-editor-css', // Handle.
-		plugin_dir_url(__FILE__) . 'dist/blocks.editor.build.css', // Block style CSS. NOTE WE ARE CHANGING THIS TO DEFAULT STYLE
+		plugins_url( '/dist/blocks.editor.build.css', dirname( __FILE__, 2 ) ), // Block style CSS. NOTE WE ARE CHANGING THIS TO DEFAULT STYLE
 		array( 'wp-edit-blocks' ), // Dependency to include the CSS after it.
-		filemtime(plugin_dir_path(__FILE__) . 'dist/blocks.editor.build.css')
+		filemtime( plugin_dir_path( __DIR__ ) . '../dist/blocks.editor.build.css' )
 		// filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' ) // Version: filemtime — Gets file modification time.
 	);
 } // End function chroma_blocks_cgb_editor_assets().
