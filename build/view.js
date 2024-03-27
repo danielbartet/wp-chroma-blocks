@@ -1,1 +1,1 @@
-console.log("Hello World! (from create-block-chroma-blocks-v2 block)");
+console.log("Hello World! (from create-block-chroma-blocks block)");

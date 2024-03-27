@@ -60,7 +60,7 @@ module.exports = {
 					loader: 'babel-loader',
 					options: {
 						cacheDirectory: true,
-						presets: ['@babel/preset-env', '@babel/preset-react'] // Añade esta línea
+						presets: ['@babel/preset-env', '@babel/preset-react']
 					},
 				},
 			},
@@ -77,7 +77,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'blocks.editor.build.css',
     }),
-    // Aquí puedes añadir más plugins si es necesario
   ],
   externals: {
     react: 'React',
