@@ -34,6 +34,7 @@ add_action( 'enqueue_block_assets', 'chroma_blocks_assets', 100 );
 
 
 function chroma_blocks_cgb_editor_assets() {
+	error_log( plugin_dir_path( __FILE__ ) . 'dist/blocks.build.js' );
 	// Scripts.
 	wp_enqueue_script(
 		'chroma_blocks-cgb-block-js', // Handle.
