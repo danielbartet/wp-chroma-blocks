@@ -43,7 +43,7 @@ const extractConfig = {
 module.exports = {
   mode: 'production',
   entry: {
-    './dist/blocks.build': path.resolve(__dirname, 'src', 'index.js'), // Ajusta según tu punto de entrada real
+    'blocks.build': path.resolve(__dirname, 'src', 'index.js'), // Ajusta según tu punto de entrada real
   },
   output: {
     pathinfo: true,

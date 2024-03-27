@@ -22,7 +22,7 @@ function chroma_blocks_category( $categories, $post ) {
         )
     );
 }
-add_filter( 'block_categories', 'chroma_blocks_category', 10, 2 );
+add_filter('block_categories_all', 'chroma_blocks_category', 10, 2);
 
 
 function chroma_blocks_assets() {
@@ -37,16 +37,17 @@ function chroma_blocks_cgb_editor_assets() {
 	// Scripts.
 	wp_enqueue_script(
 		'chroma_blocks-cgb-block-js', // Handle.
-		plugins_url( '/dist/dist/blocks.build.js', dirname( __FILE__ ) ), // Block.build.js: We register the block here. Built with Webpack.
+		plugin_dir_url(__FILE__).'/dist/blocks.build.js', // Block.build.js: We register the block here. Built with Webpack.
 		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ), // Dependencies, defined above.
-		filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.build.js' ), // Version: filemtime — Gets file modification time.
+		filemtime( plugin_dir_path( __FILE__ ) . 'dist/blocks.build.js' ), // Version: filemtime — Gets file modification time.
 		true // Enqueue the script in the footer.
 	);
 
 	wp_enqueue_style(
 		'chroma_blocks-cgb-block-editor-css', // Handle.
-		plugins_url( 'dist/blocks.editor.build.css', dirname( __FILE__ ) ), // Block style CSS. NOTE WE ARE CHANGING THIS TO DEFAULT STYLE
-		array( 'wp-edit-blocks' ) // Dependency to include the CSS after it.
+		plugin_dir_url(__FILE__) . 'dist/blocks.editor.build.css', // Block style CSS. NOTE WE ARE CHANGING THIS TO DEFAULT STYLE
+		array( 'wp-edit-blocks' ), // Dependency to include the CSS after it.
+		filemtime(plugin_dir_path(__FILE__) . 'dist/blocks.editor.build.css')
 		// filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' ) // Version: filemtime — Gets file modification time.
 	);
 } // End function chroma_blocks_cgb_editor_assets().
