@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function chroma_blocks_category( $categories, $post ) {
-	error_log('El filtro de categoría de bloques se está ejecutando.');
+	error_log('################# El filtro de categoría de bloques se está ejecutando.');
     return array_merge(
         $categories,
         array(
@@ -28,7 +28,7 @@ add_filter('block_categories_all', 'chroma_blocks_category', 10, 2);
 
 function chroma_blocks_assets() {
 	// Styles.
-	wp_register_style( 'cm-style', __DIR__ . 'dist/blocks.style.build.css', null,  filemtime( __DIR__  . 'dist/blocks.style.build.css' ));
+	wp_register_style( 'cm-style', plugins_url( '../dist/blocks.style.build.css', __FILE__ ), null,  filemtime( __DIR__  . 'dist/blocks.style.build.css' ));
 	wp_enqueue_style('cm-style');
 }
 add_action( 'enqueue_block_assets', 'chroma_blocks_assets', 100 );
@@ -38,17 +38,17 @@ function chroma_blocks_cgb_editor_assets() {
 	// Scripts.
 	wp_enqueue_script(
 		'chroma_blocks-cgb-block-js', // Handle.
-		__DIR__ . '/dist/blocks.build.js', // Block.build.js: We register the block here. Built with Webpack.
+		plugins_url( '../dist/blocks.build.js', __FILE__ ), // Block.build.js: We register the block here. Built with Webpack.
 		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ), // Dependencies, defined above.
-		filemtime(  __DIR__  . '/dist/blocks.build.js' ), // Version: filemtime — Gets file modification time.
+		filemtime( plugins_url( '../dist/blocks.build.js', __FILE__ ) ), // Version: filemtime — Gets file modification time.
 		true // Enqueue the script in the footer.
 	);
 
 	wp_enqueue_style(
 		'chroma_blocks-cgb-block-editor-css', // Handle.
-		__DIR__ . '/dist/blocks.editor.build.css', // Block style CSS. NOTE WE ARE CHANGING THIS TO DEFAULT STYLE
+		plugins_url( '../dist/blocks.editor.build.css', __FILE__ ), // Block style CSS. NOTE WE ARE CHANGING THIS TO DEFAULT STYLE
 		array( 'wp-edit-blocks' ), // Dependency to include the CSS after it.
-		filemtime(  __DIR__  . '/dist/blocks.editor.build.css' )
+		filemtime(  plugins_url( '../dist/blocks.editor.build.css', __FILE__ ) )
 		// filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' ) // Version: filemtime — Gets file modification time.
 	);
 } // End function chroma_blocks_cgb_editor_assets().
