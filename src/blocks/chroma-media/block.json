@@ -1,0 +1,14 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "chroma-blocks/chroma-media",
+	"title": "Chroma Media",
+	"category": "widgets",
+	"icon": "admin-links",
+	"description": "A custom button for Chroma.",
+	"keywords": ["media", "custom", "chroma"],
+	"textdomain": "chroma-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style.css"
+  }
