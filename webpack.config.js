@@ -2,10 +2,10 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autoprefixer = require('autoprefixer');
 const TerserPlugin = require('terser-webpack-plugin');
+const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP === 'true';
 
-// Configuración para MiniCssExtractPlugin y procesamiento de CSS/SCSS.
 const extractConfig = {
   use: [
     'css-loader',
@@ -52,24 +52,24 @@ module.exports = {
   },
   devtool: shouldUseSourceMap ? 'source-map' : false,
   module: {
-		rules: [
-			{
-				test: /\.(js|jsx|mjs)$/,
-				exclude: /node_modules/,
-				use: {
-					loader: 'babel-loader',
-					options: {
-						cacheDirectory: true,
-						presets: ['@babel/preset-env', '@babel/preset-react']
-					},
-				},
-			},
-			{
-				test: /\.s?css$/,
-				use: [MiniCssExtractPlugin.loader].concat(extractConfig.use),
-			},
-		],
-	},
+    rules: [
+      {
+        test: /\.(js|jsx|mjs)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true,
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
+        },
+      },
+      {
+        test: /\.s?css$/,
+        use: [MiniCssExtractPlugin.loader].concat(extractConfig.use),
+      },
+    ],
+  },
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'blocks.style.build.css',
@@ -77,6 +77,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'blocks.editor.build.css',
     }),
+    new DependencyExtractionWebpackPlugin(), // Agrega esta línea
   ],
   externals: {
     react: 'React',
