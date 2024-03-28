@@ -8,7 +8,7 @@
 	"description": "A custom button for Chroma.",
 	"keywords": ["media", "custom", "chroma"],
 	"textdomain": "chroma-blocks",
-	"editorScript": "file:../dist/blocks.build.js",
-  	"editorStyle": "file:../dist/blocks.editor.build.css",
-  	"style": "file:../dist/blocks.style.build.css"
+	"editorScript": "file:../../dist/blocks.build.js",
+  	"editorStyle": "file:../../dist/blocks.editor.build.css",
+  	"style": "file:../../dist/blocks.style.build.css"
   }
