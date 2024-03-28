@@ -28,7 +28,7 @@ add_filter('block_categories_all', 'chroma_blocks_category', 10, 2);
 
 function chroma_blocks_assets() {
 	// Styles.
-	wp_register_style( 'cm-style', __DIR__ . 'dist/blocks.style.build.css'), null,  filemtime( __DIR__  . 'dist/blocks.style.build.css' ));
+	wp_register_style( 'cm-style', __DIR__ . 'dist/blocks.style.build.css', null,  filemtime( __DIR__  . 'dist/blocks.style.build.css' ));
 	wp_enqueue_style('cm-style');
 }
 add_action( 'enqueue_block_assets', 'chroma_blocks_assets', 100 );
