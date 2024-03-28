@@ -58,22 +58,22 @@ function chroma_blocks_cgb_editor_assets() {
 // Hook: Editor assets.
 add_action( 'enqueue_block_editor_assets', 'chroma_blocks_cgb_editor_assets' );
 
-function chroma_blocks_register_block_type() {
-    $blocks = [
-        '/blocks/chroma-quote',
-        '/blocks/chroma-button',
-        '/blocks/chroma-media',
-        '/blocks/slider-block',
-        '/blocks/quiz-block',
-        '/blocks/select-quiz',
-        '/blocks/product-card',
-    ];
+// function chroma_blocks_register_block_type() {
+//     $blocks = [
+//         '/blocks/chroma-quote',
+//         '/blocks/chroma-button',
+//         '/blocks/chroma-media',
+//         '/blocks/slider-block',
+//         '/blocks/quiz-block',
+//         '/blocks/select-quiz',
+//         '/blocks/product-card',
+//     ];
 
-    foreach ( $blocks as $block ) {
-        register_block_type_from_metadata( __DIR__ . $block );
-    }
-}
-add_action( 'init', 'chroma_blocks_register_block_type' );
+//     foreach ( $blocks as $block ) {
+//         register_block_type_from_metadata( __DIR__ . $block );
+//     }
+// }
+// add_action( 'init', 'chroma_blocks_register_block_type' );
 
 function chroma_blocks_register_blocks() {
     $plugin_dir_url = plugin_dir_url(__FILE__);
