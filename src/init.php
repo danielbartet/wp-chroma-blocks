@@ -72,3 +72,58 @@ function chroma_blocks_register_block_type() {
     }
 }
 add_action( 'init', 'chroma_blocks_register_block_type' );
+
+function chroma_blocks_register_blocks() {
+    $plugin_dir_url = plugin_dir_url(__FILE__);
+    $script_asset_path = plugin_dir_path(__FILE__) . 'dist/blocks.build.asset.php';
+
+    if (!file_exists($script_asset_path)) {
+        error_log('Archivo .asset.php no encontrado: ' . $script_asset_path);
+        return;
+    }
+
+    $index_js = 'dist/blocks.build.js';
+    $script_asset = require($script_asset_path);
+    wp_register_script(
+        'chroma-blocks-editor-script',
+        $plugin_dir_url . $index_js,
+        $script_asset['dependencies'],
+        $script_asset['version']
+    );
+
+    $editor_css = 'dist/blocks.editor.build.css';
+    wp_register_style(
+        'chroma-blocks-editor-style',
+        $plugin_dir_url . $editor_css,
+        array(),
+        filemtime(plugin_dir_path(__FILE__) . $editor_css)
+    );
+
+    $style_css = 'dist/blocks.style.build.css';
+    wp_register_style(
+        'chroma-blocks-style',
+        $plugin_dir_url . $style_css,
+        array(),
+        filemtime(plugin_dir_path(__FILE__) . $style_css)
+    );
+
+    $block_names = [
+        'chroma-blocks/chroma-quote',
+        'chroma-blocks/chroma-button',
+        'chroma-blocks/chroma-media',
+		'chroma-blocks/slider-block',
+		'chroma-blocks/quiz-block',
+		'chroma-blocks/select-quiz',
+		'chroma-blocks/product-card',
+    ];
+
+    foreach ($block_names as $block_name) {
+        register_block_type($block_name, array(
+            'editor_script' => 'chroma-blocks-editor-script',
+            'editor_style' => 'chroma-blocks-editor-style',
+            'style' => 'chroma-blocks-style',
+        ));
+    }
+}
+add_action('init', 'chroma_blocks_register_blocks');
+
