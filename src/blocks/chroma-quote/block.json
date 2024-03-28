@@ -8,7 +8,7 @@
 	"description": "A custom button for Chroma.",
 	"keywords": ["quote", "custom", "chroma"],
 	"textdomain": "chroma-blocks",
-	"editorScript": "file:../../dist/blocks.build.js",
-  	"editorStyle": "file:../../dist/blocks.editor.build.css",
-  	"style": "file:../../dist/blocks.style.build.css"
+	"editorScript": "file:/var/www/html.org/wp-content/plugins/chroma-blocks/dist/blocks.build.js",
+  	"editorStyle": "file:/var/www/html.org/wp-content/plugins/chroma-blocks/dist/blocks.editor.build.css",
+  	"style": "file:/var/www/html.org/wp-content/plugins/chroma-blocks/dist/blocks.style.build.css"
   }
