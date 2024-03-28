@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function chroma_blocks_category( $categories, $post ) {
 	error_log('################# El filtro de categoría de bloques se está ejecutando.');
 	error_log('################# URL: '.plugin_dir_url(__FILE__));
-	error_log('################# PATH: '.MI_PLUGIN_DIR);
+	error_log('################# PATH: '.PLUGIN_DIR);
     return array_merge(
         $categories,
         array(
@@ -77,7 +77,7 @@ add_action( 'init', 'chroma_blocks_register_block_type' );
 
 function chroma_blocks_register_blocks() {
     $plugin_dir_url = plugin_dir_url(__FILE__);
-    $script_asset_path = MI_PLUGIN_DIR . 'dist/blocks.build.asset.php';
+    $script_asset_path = PLUGIN_DIR . 'dist/blocks.build.asset.php';
 
     if (!file_exists($script_asset_path)) {
         error_log('Archivo .asset.php no encontrado: ' . $script_asset_path);
