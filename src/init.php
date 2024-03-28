@@ -12,6 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function chroma_blocks_category( $categories, $post ) {
 	error_log('################# El filtro de categoría de bloques se está ejecutando.');
+	error_log('################# URL: '.plugin_dir_url(__FILE__));
+	error_log('################# PATH: '.plugin_dir_path(__FILE__));
     return array_merge(
         $categories,
         array(
