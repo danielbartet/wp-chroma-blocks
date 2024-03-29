@@ -117,7 +117,7 @@ function chroma_blocks_register_blocks() {
     ];
 
     foreach ($block_names as $block_name) {
-        register_block_type($block_name, array(
+        register_block_type_from_metadata($block_name, array(
             'editor_script' => 'chroma-blocks-editor-script',
             'editor_style' => 'chroma-blocks-editor-style',
             'style' => 'chroma-blocks-style',
