@@ -85,42 +85,49 @@ registerBlockType( 'chroma-blocks/select-quiz', {
       quiz: quizList,
     }
   })(props => {
-			const {
-				className,
-        attributes: {
-          selectedOption,
-				},
-        quiz,
-				setAttributes,
-			} = props
-      const handleSelectChange = ( selectedOption ) => setAttributes( { selectedOption: JSON.stringify( selectedOption ) } )
+    const {
+      className,
+      attributes: {
+        selectedOption,
+      },
+      quiz,
+      setAttributes,
+    } = props
+    const handleSelectChange = ( selectedOption ) => setAttributes( { selectedOption: JSON.stringify( selectedOption ) } )
 
-			return (
-				<div>
-          <span>Select a Quiz</span>
-          <Select
-            name='cmquiz-select'
-            value={ JSON.parse( selectedOption ) }
-            onChange={ handleSelectChange }
-            options={quiz}
-          />
-          <div className="cm_quiz_placeholder">
-            <span>{(selectedOption) ? JSON.parse(selectedOption).label : ''}</span>
-          </div>
-				</div>
-			);
-		}),
-		save: ( props ) => {
-			const {
-				className,
-				attributes: {
-          selectedOption
-				},
-			} = props;
-			return (
-				<div id="cm-quiz-loader" data-id={JSON.parse(selectedOption).value}>
-          <script defer src="/wp-content/plugins/chroma-blocks/src/blocks/select-quiz/quiz-loader.js"></script>
-				</div>
-			);
-		},
+    // Verifica si selectedOption es null o undefined antes de intentar parsearlo
+    const parsedSelectedOption = selectedOption ? JSON.parse(selectedOption) : null;
+
+    return (
+      <div>
+        <span>Select a Quiz</span>
+        <Select
+          name='cmquiz-select'
+          value={ parsedSelectedOption }
+          onChange={ handleSelectChange }
+          options={quiz}
+        />
+        <div className="cm_quiz_placeholder">
+          <span>{(parsedSelectedOption) ? parsedSelectedOption.label : ''}</span>
+        </div>
+      </div>
+    );
+  }),
+  save: ( props ) => {
+    const {
+      className,
+      attributes: {
+        selectedOption
+      },
+    } = props;
+
+    // Verifica si selectedOption es null o undefined antes de intentar parsearlo
+    const parsedSelectedOption = selectedOption ? JSON.parse(selectedOption) : null;
+
+    return (
+      <div id="cm-quiz-loader" data-id={parsedSelectedOption ? parsedSelectedOption.value : ''}>
+        <script defer src="/wp-content/plugins/chroma-blocks/src/blocks/select-quiz/quiz-loader.js"></script>
+      </div>
+    );
+  },
 	} );
