@@ -11,9 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function chroma_blocks_category( $categories, $post ) {
-	error_log('################# El filtro de categoría de bloques se está ejecutando.');
-	error_log('################# URL: '.plugin_dir_url(__FILE__));
-	error_log('################# PATH: '.PLUGIN_PATH);
     return array_merge(
         $categories,
         array(
@@ -42,7 +39,7 @@ function chroma_blocks_cgb_editor_assets() {
 		'chroma_blocks-cgb-block-js', // Handle.
 		PLUGIN_URL.'dist/blocks.build.js', // Block.build.js: We register the block here. Built with Webpack.
 		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ), // Dependencies, defined above.
-		filemtime( PLUGIN_PATH . 'dist/blocks.editor.build.css' ), // Version: filemtime — Gets file modification time.
+		//filemtime( PLUGIN_PATH . 'dist/blocks.editor.build.css' ), // Version: filemtime — Gets file modification time.
 		true // Enqueue the script in the footer.
 	);
 
@@ -50,7 +47,7 @@ function chroma_blocks_cgb_editor_assets() {
 		'chroma_blocks-cgb-block-editor-css', // Handle.
 		PLUGIN_URL. 'dist/blocks.editor.build.css', // Block style CSS. NOTE WE ARE CHANGING THIS TO DEFAULT STYLE
 		array( 'wp-edit-blocks' ), // Dependency to include the CSS after it.
-		filemtime(  PLUGIN_PATH . 'dist/blocks.editor.build.css' )
+		//filemtime(  PLUGIN_PATH . 'dist/blocks.editor.build.css' )
 		// filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' ) // Version: filemtime — Gets file modification time.
 	);
 } // End function chroma_blocks_cgb_editor_assets().
@@ -80,7 +77,7 @@ function chroma_blocks_register_blocks() {
     $script_asset_path = PLUGIN_PATH . 'dist/blocks.build.asset.php';
 
     if (!file_exists($script_asset_path)) {
-        error_log('Archivo .asset.php no encontrado: ' . $script_asset_path);
+        error_log('######### .asset.php file not found: ' . $script_asset_path);
         return;
     }
 
@@ -98,7 +95,7 @@ function chroma_blocks_register_blocks() {
         'chroma-blocks-editor-style',
         $plugin_dir_url . $editor_css,
         array(),
-        filemtime(PLUGIN_PATH . $editor_css)
+        //filemtime(PLUGIN_PATH . $editor_css)
     );
 
     $style_css = 'dist/blocks.style.build.css';
@@ -106,7 +103,7 @@ function chroma_blocks_register_blocks() {
         'chroma-blocks-style',
         $plugin_dir_url . $style_css,
         array(),
-        filemtime(PLUGIN_PATH . $style_css)
+        //filemtime(PLUGIN_PATH . $style_css)
     );
 
     $block_names = [
