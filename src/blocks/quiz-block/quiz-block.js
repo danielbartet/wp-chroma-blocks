@@ -10,7 +10,7 @@ import { __ } from '@wordpress/i18n';
 registerBlockType('chroma-blocks/quiz-block', {
     title: __('Quiz Block', 'chroma-blocks'),
     icon: 'editor-help',
-    category: 'chroma',
+    category: 'Chroma',
     attributes: {
         mediaID: {
             type: 'number',
