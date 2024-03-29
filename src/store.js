@@ -1,70 +1,65 @@
-const initState = {
-  count: wp.data.select('core/block-editor').getBlocks().filter(e=>e.name === 'chroma-blocks/slider-block').length,
-}
+// store.js
+const { registerStore, select, dispatch } = wp.data;
+const { subscribe } = wp.data;
 
-//register
-wp.data.registerStore('chroma', {
-  reducer: reducer,
-  selectors: { getSlideCount, getCategories },
-  actions: {
-    countSlide: countSlide,
-    returnCategories: returnCategories,
-  }
-})
-//reducer
-function reducer( state = initState, action ) {
+const DEFAULT_STATE = {
+  count: 0,
+  categories: [],
+};
+
+const actions = {
+  countSlide() {
+    return {
+      type: 'COUNT_SLIDE',
+    };
+  },
+  returnCategories(categories) {
+    return {
+      type: 'RETURN_CATEGORIES',
+      categories,
+    };
+  },
+};
+
+const reducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     case 'COUNT_SLIDE':
-      state.count = state.count + 1
-      break;
+      return {
+        ...state,
+        count: state.count + 1,
+      };
     case 'RETURN_CATEGORIES':
-      getCategories(state, action.id)
-      break;
+      return {
+        ...state,
+        categories: action.categories,
+      };
     default:
-      break;
+      return state;
   }
-  return state;
-}
-//actions
-function countSlide() {
-  return {
-    type: 'COUNT_SLIDE',
-  }
-}
-function returnCategories(clientID) {
-  return {
-    type: 'RETURN_CATEGORIES',
-    id: clientID
-  }
-}
+};
 
-//selectors
-function getSlideCount(state, clientId) {
-  var slides = wp.data.select('core/block-editor').getBlocks().filter(e=>e.name === 'chroma-blocks/slider-block').reverse();
-  var targetSlide = wp.data.select('core/block-editor').getBlock(clientId)
-  if (targetSlide != null && typeof targetSlide != 'undefined') {
-    targetSlide.attributes.slideCount = slides.indexOf(targetSlide) + 1
-    targetSlide.attributes.slidesLength = slides.length
-  }
-  return [
-    slides.indexOf(targetSlide) + 1,
-    slides.length
-  ]
-}
+const selectors = {
+  getSlideCount(state) {
+    return state.count;
+  },
+  getCategories(state) {
+    return state.categories;
+  },
+};
 
-const getCategories = (state, clientId) => {
-  console.log(state, clientId)
-  const categories = wp.data.select( 'core/block-editor' ).getEditedPostAttribute( 'categories' )
-  const targetSlide = wp.data.select('core/block-editor').getBlock(clientId)
-  if (targetSlide != null && typeof targetSlide != 'undefined')
-    targetSlide.attributes.isGallery = (categories.indexOf(8699) > -1 ) ? 'true' : 'false'
-  return targetSlide.attributes.isGallery
-}
+registerStore('chroma', {
+  reducer,
+  actions,
+  selectors,
+});
 
-///subscriber
-document.onreadystatechange = function () {
-  if (document.readyState === 'complete') {
-    wp.data.subscribe( function() {
-    })
+document.addEventListener('DOMContentLoaded', () => {
+  const blocks = select('core/block-editor').getBlocks();
+  const sliderBlocksCount = blocks.filter(block => block.name === 'chroma-blocks/slider-block').length;
+  dispatch('chroma').countSlide(sliderBlocksCount);
+
+  const categories = select('core').getEntityRecords('taxonomy', 'category');
+  if (categories) {
+    dispatch('chroma').returnCategories(categories.map(category => category.id));
   }
-}
+});
