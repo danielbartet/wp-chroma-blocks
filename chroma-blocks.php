@@ -28,5 +28,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 // 	register_block_type( __DIR__ . '/build' );
 // }
 // add_action( 'init', 'chroma_blocks_v2_chroma_blocks_v2_block_init' );
-define( 'PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+define( 'PLUGIN_URL', plugin_dir_url(__FILE__) );
 require_once plugin_dir_path( __FILE__ ) . 'src/init.php';
