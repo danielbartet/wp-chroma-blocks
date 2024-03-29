@@ -98,7 +98,7 @@ function chroma_blocks_register_blocks() {
         'chroma-blocks-editor-style',
         $plugin_dir_url . $editor_css,
         array(),
-        filemtime(plugin_dir_path(__FILE__) . $editor_css)
+        filemtime(PLUGIN_DIR . $editor_css)
     );
 
     $style_css = 'dist/blocks.style.build.css';
@@ -106,7 +106,7 @@ function chroma_blocks_register_blocks() {
         'chroma-blocks-style',
         $plugin_dir_url . $style_css,
         array(),
-        filemtime(plugin_dir_path(__FILE__) . $style_css)
+        filemtime(PLUGIN_DIR . $style_css)
     );
 
     $block_names = [
