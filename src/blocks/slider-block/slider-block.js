@@ -63,13 +63,13 @@ registerBlockType( 'chroma-blocks/slider-block', {
     }
 	},
 	edit: withSelect( (select, props) => {
-    const categories = select( 'core/editor' ).getEditedPostAttribute( 'categories' ),
+    const categories = select( 'core/block-editor' ).getEditedPostAttribute( 'categories' ),
         slideInfo = select('chroma').getSlideCount(props.clientId)
     return {
       slideCount: slideInfo[0],
       slidesLength: slideInfo[1],
-      isGallery: (select( 'core/editor' ).getEditedPostAttribute( 'categories' ).indexOf(8699) > -1 ) ? 'true' : 'false',
-      categories: select( 'core/editor' ).getEditedPostAttribute( 'categories' ).join("")
+      isGallery: (select( 'core/block-editor' ).getEditedPostAttribute( 'categories' ).indexOf(8699) > -1 ) ? 'true' : 'false',
+      categories: select( 'core/block-editor' ).getEditedPostAttribute( 'categories' ).join("")
     }
   })( props => {
 		const { attributes: { content, sub_title }, clientId, slideCount, slidesLength, focus, className, setFocus, setAttributes, isSelected, categories, isGallery } = props

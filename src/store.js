@@ -1,5 +1,5 @@
 const initState = {
-  count: wp.data.select('core/editor').getBlocks().filter(e=>e.name === 'chroma-blocks/slider-block').length,
+  count: wp.data.select('core/block-editor').getBlocks().filter(e=>e.name === 'chroma-blocks/slider-block').length,
 }
 
 //register
@@ -40,8 +40,8 @@ function returnCategories(clientID) {
 
 //selectors
 function getSlideCount(state, clientId) {
-  var slides = wp.data.select('core/editor').getBlocks().filter(e=>e.name === 'chroma-blocks/slider-block').reverse();
-  var targetSlide = wp.data.select('core/editor').getBlock(clientId)
+  var slides = wp.data.select('core/block-editor').getBlocks().filter(e=>e.name === 'chroma-blocks/slider-block').reverse();
+  var targetSlide = wp.data.select('core/block-editor').getBlock(clientId)
   if (targetSlide != null && typeof targetSlide != 'undefined') {
     targetSlide.attributes.slideCount = slides.indexOf(targetSlide) + 1
     targetSlide.attributes.slidesLength = slides.length
@@ -54,8 +54,8 @@ function getSlideCount(state, clientId) {
 
 const getCategories = (state, clientId) => {
   console.log(state, clientId)
-  const categories = wp.data.select( 'core/editor' ).getEditedPostAttribute( 'categories' )
-  const targetSlide = wp.data.select('core/editor').getBlock(clientId)
+  const categories = wp.data.select( 'core/block-editor' ).getEditedPostAttribute( 'categories' )
+  const targetSlide = wp.data.select('core/block-editor').getBlock(clientId)
   if (targetSlide != null && typeof targetSlide != 'undefined')
     targetSlide.attributes.isGallery = (categories.indexOf(8699) > -1 ) ? 'true' : 'false'
   return targetSlide.attributes.isGallery
