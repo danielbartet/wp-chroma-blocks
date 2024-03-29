@@ -1,6 +1,7 @@
 import './style.scss'
 import './editor.scss'
 import { registerBlockType, createBlock } from '@wordpress/blocks';
+import { useEffect } from '@wordpress/element';
 
 const { RawHTML } = wp.element
 const { __ } = wp.i18n
@@ -9,10 +10,9 @@ const {
   AlignmentToolbar,
   BlockControls,
   BlockAlignmentToolbar,
-  Editable,
   MediaUpload,
   InnerBlocks,
-} = wp.editor
+} = wp.blockEditor;
 const { Button, Next } = wp.components;
 const {withSelect} = wp.data;
 
@@ -63,14 +63,15 @@ registerBlockType( 'chroma-blocks/slider-block', {
     }
 	},
 	edit: withSelect( (select, props) => {
-    const categories = select( 'core/block-editor' ).getEditedPostAttribute( 'categories' ),
-        slideInfo = select('chroma').getSlideCount(props.clientId)
+    const { getEditedPostAttribute } = select( 'core/editor' );
+    const categories = getEditedPostAttribute( 'categories' );
+    const slideInfo = select('chroma').getSlideCount(ownProps.clientId);
     return {
-      slideCount: slideInfo[0],
-      slidesLength: slideInfo[1],
-      isGallery: (select( 'core/block-editor' ).getEditedPostAttribute( 'categories' ).indexOf(8699) > -1 ) ? 'true' : 'false',
-      categories: select( 'core/block-editor' ).getEditedPostAttribute( 'categories' ).join("")
-    }
+        slideCount: slideInfo[0],
+        slidesLength: slideInfo[1],
+        isGallery: categories.indexOf(8699) > -1 ? 'true' : 'false',
+        categories: categories.join("")
+    };
   })( props => {
 		const { attributes: { content, sub_title }, clientId, slideCount, slidesLength, focus, className, setFocus, setAttributes, isSelected, categories, isGallery } = props
     console.log(isGallery)
@@ -78,8 +79,11 @@ registerBlockType( 'chroma-blocks/slider-block', {
       setAttributes( { content: value } )
     }
     const ALLOWED_BLOCKS = ['chroma-blocks/media-upload', 'core/image', 'core/paragraph', 'core/list', 'core/table', 'core/button', 'core/classic-block']
-    wp.data.dispatch('chroma').countSlide()
-    wp.data.dispatch('chroma').returnCategories(clientId)
+    useEffect(() => {
+			// Despacha tus acciones aquí.
+			wp.data.dispatch('chroma').countSlide();
+			wp.data.dispatch('chroma').returnCategories(clientId);
+		}, []);
 		return (
       <div className={'sb'} data-slides-length={slidesLength} data-categories={categories} data-gallery={isGallery}>
         <div data-slide-count={slideCount} className="sb_bubble"></div>
