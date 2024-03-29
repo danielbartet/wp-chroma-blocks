@@ -14,29 +14,28 @@ const {
   InnerBlocks,
 } = wp.blockEditor;
 const { Button, Next } = wp.components;
-const {withSelect} = wp.data;
-
+const { withSelect } = wp.data;
 
 const TEMPLATE = [
   ['chroma-blocks/media-upload'],
 ]
 
-registerBlockType( 'chroma-blocks/slider-block', {
-	title: __( 'Slider Block' ),
-	icon: 'images-alt',
-	category: 'Chroma',
-	attributes: {
+registerBlockType('chroma-blocks/slider-block', {
+  title: __('Slider Block'),
+  icon: 'images-alt',
+  category: 'chroma',
+  attributes: {
     clientId: 1,
     sub_title: {
       type: 'array',
       source: 'children',
       selector: '.sb_h2'
     },
-		content: {
-			type: 'array',
-			source: 'children',
-			selector: '.sb_p',
-		},
+    content: {
+      type: 'array',
+      source: 'children',
+      selector: '.sb_p',
+    },
     slideCount: {
       source: 'attribute',
       selector: '.sb_bubble',
@@ -61,81 +60,80 @@ registerBlockType( 'chroma-blocks/slider-block', {
       attribute: 'data-gallery',
       default: 'false'
     }
-	},
-	edit: withSelect( (select, props) => {
-    const { getEditedPostAttribute } = select( 'core/editor' );
-    const categories = getEditedPostAttribute( 'categories' );
+  },
+  edit: withSelect((select, ownProps) => {
+    const { getEditedPostAttribute } = select('core/editor');
+    const categories = getEditedPostAttribute('categories');
     const slideInfo = select('chroma').getSlideCount(ownProps.clientId);
     return {
-        slideCount: slideInfo[0],
-        slidesLength: slideInfo[1],
-        isGallery: categories.indexOf(8699) > -1 ? 'true' : 'false',
-        categories: categories.join("")
+      slideCount: slideInfo[0],
+      slidesLength: slideInfo[1],
+      isGallery: categories.indexOf(8699) > -1 ? 'true' : 'false',
+      categories: categories.join("")
     };
-  })( props => {
-		const { attributes: { content, sub_title }, clientId, slideCount, slidesLength, focus, className, setFocus, setAttributes, isSelected, categories, isGallery } = props
+  })(props => {
+    const { attributes: { content, sub_title }, clientId, slideCount, slidesLength, focus, className, setFocus, setAttributes, isSelected, categories, isGallery } = props
     console.log(isGallery)
-    const onChangeSlideText = ( value ) => {
-      setAttributes( { content: value } )
+    const onChangeSlideText = (value) => {
+      setAttributes({ content: value })
     }
     const ALLOWED_BLOCKS = ['chroma-blocks/media-upload', 'core/image', 'core/paragraph', 'core/list', 'core/table', 'core/button', 'core/classic-block']
     useEffect(() => {
-			// Despacha tus acciones aquí.
-			wp.data.dispatch('chroma').countSlide();
-			wp.data.dispatch('chroma').returnCategories(clientId);
-		}, []);
-		return (
+      wp.data.dispatch('chroma').countSlide();
+      wp.data.dispatch('chroma').returnCategories(clientId);
+    }, []);
+    return (
       <div className={'sb'} data-slides-length={slidesLength} data-categories={categories} data-gallery={isGallery}>
         <div data-slide-count={slideCount} className="sb_bubble"></div>
         <RichText
           tagName="h2"
           className="sb_h2"
-          onChange={ (newTitle) => { console.log(createBlock( 'core/list', {
-          						values: `<li>check</li>`,
-          					} )); props.setAttributes( { sub_title: newTitle } )} }
-          value={ sub_title }
-          focus={ focus }
-          onFocus={ setFocus }
+          onChange={(newTitle) => { console.log(createBlock('core/list', {
+            values: `<li>check</li>`,
+          })); props.setAttributes({ sub_title: newTitle }) }}
+          value={sub_title}
+          focus={focus}
+          onFocus={setFocus}
           placeholder={'Slide Title'}
         />
-        <InnerBlocks allowedBlocks={ALLOWED_BLOCKS} template={TEMPLATE}/>
+        <InnerBlocks allowedBlocks={ALLOWED_BLOCKS} template={TEMPLATE} />
       </div>
-		);
-	}),
-	save: props => {
+    );
+  }),
+  save: props => {
     const { slideCount, slidesLength, sub_title, imgURL, imgAlt, content, caption, captionLink, categories, isGallery } = props.attributes;
     return (
       <React.Fragment>
         {
           (isGallery === 'true' && slideCount === slidesLength)
-          ?
+            ?
             <RawHTML>
               { '<!--nextpage-->' }
             </RawHTML>
-          : null
+            : null
         }
         <div className='sb' data-slides-length={slidesLength} data-categories={categories} data-gallery={isGallery}>
           <div data-slide-count={slideCount} className="sb_bubble"></div>
-          <RichText.Content tagName="h2" className="sb_h2" value={ sub_title } />
+          <RichText.Content tagName="h2" className="sb_h2" value={sub_title} />
           <InnerBlocks.Content />
         </div>
         {
           (isGallery === 'true')
             ?
-              <RawHTML>
-                { '<!--nextpage-->' }
-              </RawHTML>
+            <RawHTML>
+              { '<!--nextpage-->' }
+            </RawHTML>
             : null
         }
         {
           (isGallery === 'true' && slideCount == 1)
-          ?
+            ?
             <RawHTML>
               { '<!--nextpage-->' }
             </RawHTML>
-          : null
+            : null
         }
       </React.Fragment>
-  	)
+    )
   }
-} );
+});
