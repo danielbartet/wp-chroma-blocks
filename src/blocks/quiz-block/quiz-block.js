@@ -1,162 +1,121 @@
- //Import CSS.
+// Import CSS.
 import './style.scss';
 import './editor.scss';
 
-const { __ } = wp.i18n;
 import { registerBlockType } from '@wordpress/blocks';
-const { RichText, MediaUpload } = wp.editor;
-const { SelectControl, Button } = wp.components;
+import { RichText, MediaUpload, URLInputButton } from '@wordpress/block-editor';
+import { Button, SelectControl } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
-registerBlockType( 'chroma-blocks/quiz-block', {
-	title: __( 'Quiz Block' ),
-	icon: 'editor-help',
-	category: 'Chroma',
-	attributes: {
-		mediaID: {
-			type: 'number',
-		},
-		mediaURL: {
-			type: 'string',
-			source: 'attribute',
-			selector: 'img',
-			attribute: 'src',
-		},
-		question: {
-			type: 'array',
-			source: 'children',
-			selector: '.cm-quiz-slide-q',
-		},
-		answers: {
-			type: 'array',
-			source: 'children',
-			selector: '.cm-quiz-slide-ans',
-		},
-		correct: {
-			type: 'string',
-			source: 'attribute',
-			selector: '.cm-quiz-slide',
-			attribute: 'data-correct',
-      default: 'a'
-		},
-		explanation : {
-			type: 'array',
-			source: 'children',
-			selector: '.cm-quiz-slide-exp-s',
-		},
-	},
-	edit: ( props ) => {
-			const {
-				className,
-				attributes: {
-					explanation,
-					mediaID,
-					mediaURL,
-					question,
-					answers,
-					correct,
-				},
-				setAttributes,
-			} = props
+registerBlockType('chroma-blocks/quiz-block', {
+    title: __('Quiz Block', 'chroma-blocks'),
+    icon: 'editor-help',
+    category: 'chroma',
+    attributes: {
+        mediaID: {
+            type: 'number',
+        },
+        mediaURL: {
+            type: 'string',
+            source: 'attribute',
+            selector: 'img',
+            attribute: 'src',
+        },
+        question: {
+            type: 'array',
+            source: 'children',
+            selector: '.cm-quiz-slide-q',
+        },
+        answers: {
+            type: 'array',
+            source: 'children',
+            selector: '.cm-quiz-slide-ans',
+        },
+        correct: {
+            type: 'string',
+            source: 'attribute',
+            selector: '.cm-quiz-slide',
+            attribute: 'data-correct',
+            default: 'a',
+        },
+        explanation: {
+            type: 'array',
+            source: 'children',
+            selector: '.cm-quiz-slide-exp-s',
+        },
+    },
+    edit: ({ attributes, setAttributes }) => {
+        const { mediaID, mediaURL, question, answers, correct, explanation } = attributes;
 
-			const onSelectImage = ( media ) => {
-				setAttributes( {
-					mediaURL: media.url,
-					mediaID: media.id,
-				} )
-			}
-			const onChangeQuestion = ( value ) => {
-				setAttributes( { question: value } )
-			}
+        const onSelectImage = (media) => {
+            setAttributes({
+                mediaURL: media.url,
+                mediaID: media.id,
+            });
+        };
 
-			const onChangeAnswers = ( value ) => {
-				setAttributes( { answers: value } )
-			}
+        return (
+            <div className="cm-quiz-slide">
+                <figure className="quiz-image">
+                    <MediaUpload
+                        onSelect={onSelectImage}
+                        allowedTypes={['image']}
+                        value={mediaID}
+                        render={({ open }) => (
+                            <Button className={mediaID ? 'image-button' : 'button button-large'} onClick={open}>
+                                {!mediaID ? __('Upload Image', 'chroma-blocks') : <img src={mediaURL} alt={__('Upload Image', 'chroma-blocks')} />}
+                            </Button>
+                        )}
+                    />
+                </figure>
+                <RichText
+                    tagName="div"
+                    placeholder={__('Write the Question', 'chroma-blocks')}
+                    value={question}
+                    onChange={(newQuestion) => setAttributes({ question: newQuestion })}
+                    className="cm-quiz-slide-q"
+                />
+                <SelectControl
+                    label={__('Correct Answer', 'chroma-blocks')}
+                    value={correct}
+                    options={[
+                        { label: 'A', value: 'a' },
+                        { label: 'B', value: 'b' },
+                        { label: 'C', value: 'c' },
+                        { label: 'D', value: 'd' },
+                    ]}
+                    onChange={(newCorrect) => setAttributes({ correct: newCorrect })}
+                />
+                <RichText
+                    tagName="ul"
+                    multiline="li"
+                    placeholder={__('Write the Answers', 'chroma-blocks')}
+                    value={answers}
+                    onChange={(newAnswers) => setAttributes({ answers: newAnswers })}
+                    className="cm-quiz-slide-ans"
+                />
+                <RichText
+                    tagName="div"
+                    placeholder={__('Write the Explanation', 'chroma-blocks')}
+                    value={explanation}
+                    onChange={(newExplanation) => setAttributes({ explanation: newExplanation })}
+                    className="cm-quiz-slide-exp-s"
+                />
+            </div>
+        );
+    },
+    save: ({ attributes }) => {
+        const { mediaURL, question, answers, correct, explanation } = attributes;
 
-			const onChangeExplanation = ( value ) => {
-				setAttributes( { explanation: value } )
-			}
-			const onChangeCorrect = ( value ) => {
-				setAttributes( { correct: value } )
-			}
-
-			return (
-				<div className="cm-quiz-slide">
-					<figure className="quiz-image">
-						<MediaUpload
-							onSelect={ onSelectImage }
-							allowedTypes="image"
-							value={ mediaID }
-							render={ ( { open } ) => (
-								<Button className={ mediaID ? 'image-button' : 'button button-large' } onClick={ open }>
-									{ ! mediaID ? __( 'Upload Image', 'gutenberg-examples' ) : <img src={ mediaURL } alt={ __( 'Upload Recipe Image', 'gutenberg-examples' ) } /> }
-								</Button>
-							) }
-						/>
-					</figure>
-					<span>{ 'Question' }</span>
-					<RichText
-						tagName="div"
-						placeholder={ 'Write the Question' }
-						value={ question }
-						onChange={ onChangeQuestion }
-						className="question"
-					/>
-					<span>{ 'Answers' }</span>
-					<SelectControl
-			        label="Correct Answer"
-			        value={ correct }
-			        options={ [
-			            { label: 'A', value: 'a' },
-			            { label: 'B', value: 'b' },
-			            { label: 'C', value: 'c' },
-									{ label: 'D', value: 'd' }
-			        ] }
-			        onChange={ onChangeCorrect }
-			    />
-					<RichText
-						tagName="ul"
-						multiline="li"
-						className="cm-quiz-slide-ans"
-						placeholder={'Write the Answers'}
-						value={ answers }
-						onChange={ onChangeAnswers }
-					/>
-
-					<span>{ 'Explanation' }</span>
-					<RichText
-						tagName="div"
-						placeholder={ 'Write the Explanation' }
-						value={ explanation }
-						onChange={ onChangeExplanation }
-						className="cm-quiz-explanation"
-					/>
-				</div>
-			);
-		},
-		save: ( props ) => {
-			const {
-				className,
-				attributes: {
-					explanation,
-					mediaURL,
-					question,
-					answers,
-					correct,
-				},
-			} = props;
-			return (
-				<div className="cm-quiz-slide" data-correct={correct}>
-					{
-						mediaURL && (
-							<img className="quiz-image" src={ mediaURL } />
-						)
-					}
-					<RichText.Content tagName="div" className="cm-quiz-slide-q" value={ question } />
-					<RichText.Content tagName="ul" className="cm-quiz-slide-ans" value={ answers  } />
-          <div className="cm-quiz-slide-exp">
-            <RichText.Content tagName="div" className="cm-quiz-slide-exp-s" value={ explanation } />
-          </div>
-				</div>
-			);
-		},
-	} );
+        return (
+            <div className="cm-quiz-slide" data-correct={correct}>
+                {mediaURL && <img className="quiz-image" src={mediaURL} />}
+                <RichText.Content tagName="div" className="cm-quiz-slide-q" value={question} />
+                <RichText.Content tagName="ul" className="cm-quiz-slide-ans" value={answers} />
+                <div className="cm-quiz-slide-exp">
+                    <RichText.Content tagName="div" className="cm-quiz-slide-exp-s" value={explanation} />
+                </div>
+            </div>
+        );
+    },
+});

@@ -12,7 +12,7 @@ const {
   Editable,
   MediaUpload,
   URLInput,
-} = wp.editor
+} = wp.blockEditor
 
 const { Button, SelectControl } = wp.components;
 const {withSelect} = wp.data;

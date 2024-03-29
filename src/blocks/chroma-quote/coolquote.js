@@ -10,7 +10,7 @@ import './style.scss';
 import './editor.scss';
 
 import { registerBlockType } from '@wordpress/blocks';
-const { RichText } = wp.editor;
+const { RichText } = wp.blockEditor;
 
 registerBlockType( 'chroma-blocks/cool-quote', {
 	title: 'Cool Quote',
@@ -42,13 +42,12 @@ registerBlockType( 'chroma-blocks/cool-quote', {
       </div>
 		);
 	},
-	save: props => {
-    return (
-      <div className={ ['divquote', props.attributes.className].join(' ') }>
-        <span class="coolquote">
-          { props.attributes.content }
-        </span>
-      </div>
-  	)
-  }
+	save: ({ attributes }) => {
+		const { content } = attributes;
+		return (
+		  <div className="divquote">
+			<RichText.Content tagName="span" className="coolquote" value={content} />
+		  </div>
+		);
+	  }
 } );

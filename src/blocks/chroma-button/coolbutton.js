@@ -1,9 +1,9 @@
 import './style.scss'
 
 import { registerBlockType } from '@wordpress/blocks';
-const { URLInput } = wp.editor;
+const { URLInput } = wp.blockEditor;
 const { Fragment } = wp.element;
-const { IconButton, Tooltip, TextControl } = wp.components;
+const { Button, Tooltip, TextControl } = wp.components;
 
 
 registerBlockType( 'chroma-blocks/chroma-button', {
@@ -48,7 +48,7 @@ registerBlockType( 'chroma-blocks/chroma-button', {
                       value={ url }
                       onChange={ url => setAttributes( { url } ) }
                   />
-                  <IconButton
+                  <Button
                       icon="editor-break"
                       label='Apply'
                       type="submit"
