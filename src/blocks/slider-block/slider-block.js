@@ -23,7 +23,7 @@ const TEMPLATE = [
 registerBlockType('chroma-blocks/slider-block', {
   title: __('Slider Block'),
   icon: 'images-alt',
-  category: 'chroma',
+  category: 'Chroma',
   attributes: {
     clientId: 1,
     sub_title: {
