@@ -9,7 +9,7 @@ import { Button, Toolbar, Tooltip } from '@wordpress/components';
 registerBlockType('chroma-blocks/media-upload', {
     title: 'Chroma Upload',
     icon: 'format-image',
-    category: 'chroma',
+    category: 'Chroma',
     attributes: {
         imgURL: {
             type: 'string',
