@@ -83,18 +83,20 @@ registerBlockType('chroma-blocks/media-upload', {
         );
     },
     save: ({ attributes }) => {
-        const { imgURL, imgAlt, caption, captionLink, alignment } = attributes;
-        return (
-            <div className={`wp-block-chroma-blocks-media-upload align${alignment}`}>
-                <img src={imgURL} alt={imgAlt} />
-                {caption && (
-                    <figcaption className="figcaption">
-                        <a href={captionLink} className="figcaption_link" target="_blank" rel="noopener noreferrer">
-                            {caption}
-                        </a>
-                    </figcaption>
-                )}
-            </div>
-        );
-    },
+			const { imgURL, imgAlt, caption, captionLink, alignment } = attributes;
+			return (
+					<div className={`wp-block-chroma-blocks-media-upload image-container ${alignment}`}>
+							<figure className={caption ? 'entry-content_figure fig-wcaption' : 'entry-content_figure'}>
+									<img src={imgURL} alt={imgAlt} />
+									{caption && (
+											<figcaption className="figcaption">
+													<a href={captionLink} className="figcaption_link" target="_blank" rel="noopener noreferrer">
+															{caption}
+													</a>
+											</figcaption>
+									)}
+							</figure>
+					</div>
+			);
+		},
 });
