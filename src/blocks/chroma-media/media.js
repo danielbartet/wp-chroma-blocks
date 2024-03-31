@@ -84,9 +84,10 @@ registerBlockType('chroma-blocks/media-upload', {
     },
     save: ({ attributes }) => {
 			const { imgURL, imgAlt, caption, captionLink, alignment } = attributes;
+			const alignmentClass = alignment ? ` ${alignment}` : '';
 			return (
-					<div className={`wp-block-chroma-blocks-media-upload image-container ${alignment}`}>
-							<figure className={caption ? 'entry-content_figure fig-wcaption' : 'entry-content_figure'}>
+					<div className={`wp-block-chroma-blocks-media-upload${alignmentClass}`}>
+							<figure className="entry-content_figure fig-wcaption">
 									<img src={imgURL} alt={imgAlt} />
 									{caption && (
 											<figcaption className="figcaption">
@@ -98,5 +99,6 @@ registerBlockType('chroma-blocks/media-upload', {
 							</figure>
 					</div>
 			);
-		},
+	},
+
 });
