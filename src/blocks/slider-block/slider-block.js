@@ -84,7 +84,7 @@ registerBlockType('chroma-blocks/slider-block', {
     }, []);
     return (
       <div className={'sb'} data-slides-length={slidesLength} data-categories={categories} data-gallery={isGallery}>
-        <div data-slide-count={slideCount} className="sb_bubble"></div>
+        <div className="sb_bubble" data-slide-count={slideCount}></div>
         <RichText
           tagName="h2"
           className="sb_h2"
@@ -113,7 +113,7 @@ registerBlockType('chroma-blocks/slider-block', {
             : null
         }
         <div className='sb' data-slides-length={slidesLength} data-categories={categories} data-gallery={isGallery}>
-          <div data-slide-count={slideCount} className="sb_bubble"></div>
+          <div className="sb_bubble" data-slide-count={slideCount}></div>
           <RichText.Content tagName="h2" className="sb_h2" value={sub_title} />
           <InnerBlocks.Content />
         </div>

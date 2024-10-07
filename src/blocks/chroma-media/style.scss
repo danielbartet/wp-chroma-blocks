@@ -2,7 +2,8 @@
  * CSS for both Frontend+Backend.
  */
 .image-container {
-  display: flex;
+  //display: flex;
+  display: inline;
   width: 100%;
   margin: 4px auto 12px;
   figure {
@@ -75,4 +76,7 @@
      height: auto !important;
     }
  }
+}
+.image-button {
+  display: inline;
 }
